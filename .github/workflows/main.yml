@@ -1,25 +1,37 @@
-name: ⚡ Build KotuktoperGram iOS26
+name: 🐢 Build KotuktoperGram iOS26
 
 on: workflow_dispatch
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
+    timeout-minutes: 30  # Долгий таймаут для медленного интернета
     
     steps:
     - name: 📥 Checkout code
       uses: actions/checkout@v4
       
-    - name: ⚡ Build APK
+    - name: 🐢 Build APK (Slow Internet Mode)
       run: |
         chmod +x gradlew
+        
+        # РЕЖИМ 1: Сначала пробуем БЕЗ интернета (быстро)
+        echo "🔄 Попытка 1: Сборка БЕЗ интернета..."
         ./gradlew :TMessagesProj:assembleDebug \
           --no-daemon \
-          --parallel \
-          --max-workers=6 \
-          --build-cache \
-          --configuration-cache \
-          --rerun-tasks \
-          --refresh-dependencies \
-          -x check -x test -x lint -x verify -x ktlint -x detekt -x validate -x spotless -x pmd -x findbugs
+          --offline \
+          --no-build-cache \
+          --no-configuration-cache \
+          -x check -x test -x lint -x verify -x ktlint -x detekt || \
+        
+        # РЕЖИМ 2: Если не получилось - качаем зависимости (медленно)
+        echo "🌐 Попытка 2: Скачиваем зависимости..."
+        ./gradlew :TMessagesProj:assembleDebug \
+          --no-daemon \
+          --no-build-cache \
+          --no-configuration-cache \
+          -x check -x test -x lint -x verify -x ktlint -x detekt || \
+        
+        # РЕЖИМ 3: Максимально упрощённая сборка
+        echo "⚡ Попытка 3: Максимально простая сборка...by kotuktoper"
+        ./gradlew :TMessagesProj:assembleDebug --no-daemon --stacktrace
