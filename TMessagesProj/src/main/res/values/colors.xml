@@ -1,11 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="divider">#dcdcdc</color>
-    <color name="widget_name">#212121</color>
-    <color name="widget_badge">#ffffff</color>
-    <color name="widget_time">#96999C</color>
-    <color name="widget_text">#8B8D8F</color>
-    <color name="widget_divider">#d9d9d9</color>
-    <color name="widget_action_text">#8B8D8F</color>
-    <color name="widget_edit_text">#999999</color>
+    <!-- KotuktoperGram iOS 26 NEON GLOW -->
+    <color name="ios26_neon_blue">#00F0FF</color>
+    <color name="ios26_neon_pink">#FF00E5</color>
+    <color name="ios26_neon_green">#00FFA3</color>
+    <color name="ios26_neon_purple">#B300FF</color>
+    <color name="ios26_neon_cyan">#00FFE0</color>
+    <color name="ios26_neon_yellow">#FFEE00</color>
+    
+    <!-- Cosmic Backgrounds -->
+    <color name="ios26_dark_space">#0A0A1A</color>
+    <color name="ios26_deep_cosmos">#1A1A2A</color>
+    <color name="ios26_galaxy_purple">#2A1A3A</color>
+    
+    <!-- Gradient Accents -->
+    <color name="ios26_gradient_start">#FF00E5</color>
+    <color name="ios26_gradient_end">#00F0FF</color>
+
+    <!-- ===== MAIN THEME ===== -->
+    <color name="theme_color">@color/ios26_neon_blue</color>
+    <color name="actionBarDefault">@color/ios26_neon_blue</color>
+    <color name="actionBarDefaultSelector">@color/ios26_neon_pink</color>
+    
+    <!-- Backgrounds -->
+    <color name="windowBackgroundWhite">@color/ios26_dark_space</color>
+    <color name="windowBackgroundGray">@color/ios26_deep_cosmos</color>
+    <color name="chatBackground">@color/ios26_dark_space</color>
+    
+    <!-- Message Bubbles -->
+    <color name="chat_outBubbleBackground">@color/ios26_neon_blue</color>
+    <color name="chat_inBubbleBackground">@color/ios26_galaxy_purple</color>
+    <color name="chat_outBubbleShadow">#4000F0FF</color>
+    <color name="chat_inBubbleShadow">#40B300FF</color>
+    
+    <!-- Text Colors -->
+    <color name="chat_messageTextOut">#FFFFFF</color>
+    <color name="chat_messageTextIn">#FFFFFF</color>
+    <color name="actionBarDefaultTitle">#FFFFFF</color>
+    
+    <!-- Icons & Controls -->
+    <color name="checkboxSquare">@color/ios26_neon_green</color>
+    <color name="switchTrack">@color/ios26_neon_pink</color>
+    <color name="switchTrackChecked">@color/ios26_neon_blue</color>
+    
+    <!-- Status & Indicators -->
+    <color name="online">@color/ios26_neon_green</color>
+    <color name="offline">@color/ios26_neon_purple</color>
+    <color name="unread">@color/ios26_neon_yellow</color>
+
+    <!-- Keep original colors below for compatibility -->
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="transparent">#00000000</color>
 </resources>
