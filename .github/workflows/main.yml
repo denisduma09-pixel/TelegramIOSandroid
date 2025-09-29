@@ -1,24 +1,25 @@
-
-name: 🏗️ Build KotuktoperGram iOS26
+name: ⚡ Build KotuktoperGram iOS26
 
 on: workflow_dispatch
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 8
     
     steps:
     - name: 📥 Checkout code
       uses: actions/checkout@v4
       
-    - name: 🏗️ Build APK
+    - name: ⚡ Build APK
       run: |
         chmod +x gradlew
         ./gradlew :TMessagesProj:assembleDebug \
           --no-daemon \
           --parallel \
-          --max-workers=4 \
+          --max-workers=6 \
           --build-cache \
           --configuration-cache \
-          -x check -x test -x lint -x verify -x ktlint -x detekt
+          --rerun-tasks \
+          --refresh-dependencies \
+          -x check -x test -x lint -x verify -x ktlint -x detekt -x validate -x spotless -x pmd -x findbugs
