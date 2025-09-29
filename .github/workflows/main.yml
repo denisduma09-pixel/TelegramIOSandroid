@@ -1,14 +1,12 @@
 name: 🏗️ Build KotuktoperGram iOS26
 
 on:
-  push:
-    branches: [ main, master ]
-  workflow_dispatch:
+  workflow_dispatch:  # ТОЛЬКО ручной запуск
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 25  # ← АВТООТМЕНА через 25 минут!
+    timeout-minutes: 20
     
     steps:
     - name: 📥 Checkout code
@@ -20,18 +18,20 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         
-    - name: 🤖 Setup Android SDK
-      uses: android-actions/setup-android@v3
-      
-    - name: 🔧 Clean and build
+    - name: 🏗️ Build APK
       run: |
         chmod +x gradlew
-        # БЫСТРАЯ сборка только основного модуля
-        ./gradlew :TMessagesProj:assembleDebug --no-daemon --no-build-cache
-        
-    - name: 📦 Upload APK
-      if: always()  # ← Загрузит APK даже если частично собрался
-      uses: actions/upload-artifact@v4
-      with:
-        name: KotuktoperGram-Result
-        path: TMessagesProj/build/outputs/apk/**/*.apk
+        ./gradlew :TMessagesProj:assembleDebug \
+          --no-daemon \
+          --no-build-cache \
+          --no-configuration-cache \
+          --offline \
+          --parallel \
+          --max-workers=2 \
+          -x check \
+          -x test \
+          -x lint \
+          -x verify \
+          -x ktlint \
+          -x detekt \
+          -x dependencyCheck
