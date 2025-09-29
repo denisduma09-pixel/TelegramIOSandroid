@@ -106,6 +106,8 @@ public class DataSettingsActivity extends BaseFragment {
     private int saveToGalleryDividerRow;
 
     private int rowCount;
+private int kotuktoperRow = 15; // Добавляем эту строку
+    
 
     private boolean updateVoipUseLessData;
 
@@ -129,6 +131,7 @@ public class DataSettingsActivity extends BaseFragment {
         usageSectionRow = rowCount++;
         storageUsageRow = rowCount++;
         dataUsageRow = rowCount++;
+        kotuktoperRow = rowCount++;
         storageNumRow = -1;
         if (Build.VERSION.SDK_INT >= 19) {
             storageDirs = AndroidUtilities.getRootDirs();
@@ -763,10 +766,19 @@ public class DataSettingsActivity extends BaseFragment {
                     break;
                 }
                 case 4: {
+                    @Override
+public int getItemViewType(int position) {
+    if (position == 10) { // Временная позиция для теста
+        return 4; // Наш KotuktoperGram
+    }
+    // Пока возвращаем 1 для всех остальных позиций
+    return 1;
+                }
                     TextInfoPrivacyCell cell = (TextInfoPrivacyCell) holder.itemView;
                     if (position == enableAllStreamInfoRow) {
                         cell.setText(LocaleController.getString(R.string.EnableAllStreamingInfo));
                     }
+                    
                     break;
                 }
                 case 5: {
@@ -910,6 +922,34 @@ public class DataSettingsActivity extends BaseFragment {
                     view.setBackgroundColor(Theme.getColor(Theme.key_windowBackgroundWhite));
                     break;
                 case 4:
+                    @Override
+public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    View view;
+    switch (viewType) {
+        case 0:
+            view = new ShadowSectionCell(mContext);
+            break;
+        case 1:
+            view = new TextSettingsCell(mContext);
+            view.setBackgroundColor(Theme.getColor(Theme.key_windowBackgroundWhite));
+            break;
+        case 2:
+            view = new HeaderCell(mContext, 22);
+            view.setBackgroundColor(Theme.getColor(Theme.key_windowBackgroundWhite));
+            break;
+        case 3:
+            view = new TextCheckCell(mContext);
+            view.setBackgroundColor(Theme.getColor(Theme.key_windowBackgroundWhite));
+            break;
+        case 4:
+            // НАШ НОВЫЙ РАЗДЕЛ KOTUKTOPERGRAM
+            view = new TextSettingsCell(mContext);
+            view.setBackgroundColor(Theme.getColor(Theme.key_windowBackgroundWhite));
+            break;
+        // ... остальные case
+    }
+    return new RecyclerListView.Holder(view);
+                    }
                     view = new TextInfoPrivacyCell(mContext);
                     view.setBackgroundDrawable(Theme.getThemedDrawableByKey(mContext, R.drawable.greydivider, Theme.key_windowBackgroundGrayShadow));
                     break;
